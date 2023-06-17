@@ -9,7 +9,7 @@ const clainUsernameFormSchema = z.object({
   username: z
     .string()
     .min(3, { message: 'O usuário precisa de pelo menos três letras' })
-    .regex(/^([a-z\\-]+)$/i, {
+    .regex(/^([a-z\\\\-]+)$/i, {
       message: 'O usuário pode ter apenas letras e hifens',
     })
     .transform((value) => value.toLowerCase()),
