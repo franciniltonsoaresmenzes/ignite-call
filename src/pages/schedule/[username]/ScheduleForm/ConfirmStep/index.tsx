@@ -10,13 +10,15 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import dayjs from 'dayjs'
+import { api } from '@/lib/axios'
+import { useRouter } from 'next/router'
 
 const confirmStepSchema = z.object({
   name: z
     .string()
     .min(3, { message: 'O nome precisa no mínimo 3 caracteres.' }),
   email: z.string().email({ message: 'Digite um e-mail valído.' }),
-  observation: z.string().nullable(),
+  observations: z.string().nullable(),
 })
 
 type confirmStepData = z.infer<typeof confirmStepSchema>
@@ -38,8 +40,20 @@ export function ConfirmStep({
     resolver: zodResolver(confirmStepSchema),
   })
 
-  function handleConfirmStepScheduling(data: confirmStepData) {
-    console.log(data)
+  const router = useRouter()
+  const username = String(router.query.username)
+
+  async function handleConfirmStepScheduling(data: confirmStepData) {
+    const { name, email, observations } = data
+
+    await api.post(`/users/${username}/shedule`, {
+      name,
+      email,
+      observations,
+      date: shedulingDate,
+    })
+
+    onCancelCofirmation()
   }
 
   const describedDate = dayjs(shedulingDate).format('DD[ de ]MMMM[ de ]YYYY')
@@ -76,7 +90,7 @@ export function ConfirmStep({
 
       <label>
         <Text size="sm">Observações</Text>
-        <TextArea {...register('observation')} />
+        <TextArea {...register('observations')} />
       </label>
 
       <ConfirmActions>

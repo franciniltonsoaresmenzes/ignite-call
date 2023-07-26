@@ -33,8 +33,6 @@ export default async function handle(
     },
   })
 
-  console.log(referenceDate.get('day'))
-
   if (!userAvailability)
     return res.json({ possibleTimes: [], availableTimes: [] })
 
