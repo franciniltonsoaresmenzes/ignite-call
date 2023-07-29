@@ -36,5 +36,8 @@
     "@rocketseat/eslint-config": "^1.2.0",
     "@types/cookie": "^0.5.1",
     "prisma": "^4.15.0"
+  },
+  "scripts": {
+    "postinstall": "prisma generate"
   }
 }
