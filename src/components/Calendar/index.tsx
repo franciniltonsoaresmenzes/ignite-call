@@ -35,6 +35,7 @@ interface CalendarProps {
 }
 
 export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
+  console.log(selectedDate)
   const [currentDate, setCurrentDate] = useState(() => {
     return dayjs().set('date', 1)
   })
@@ -71,7 +72,6 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
       return response.data
     },
   )
-  console.log(currentDate.get('month'))
 
   const calendarWeeks = useMemo(() => {
     if (!blockedDates) return []

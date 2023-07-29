@@ -4,7 +4,6 @@
     "@rocketseat/eslint-config/react"
   ],
   "rules": {
-    "camelcase": "off",
-    "no-useless-return": "off"
+    "camelcase": "off"
   }
 }
